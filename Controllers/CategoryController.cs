@@ -40,9 +40,13 @@ namespace ASP.NET_Ecommerce_Web_API.Controllers
         public IActionResult CreateCategory([FromBody] CategoryCreateDto categoryData)
         {
             // validation: category name can't be null
-            if (string.IsNullOrEmpty(categoryData.CategoryName))
+            // if (string.IsNullOrEmpty(categoryData.CategoryName))
+            // {
+            //     return BadRequest("Category name is required!");
+            // }
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Category name is required!");
+
             }
 
             // Creating categroy using category model
@@ -54,9 +58,10 @@ namespace ASP.NET_Ecommerce_Web_API.Controllers
                 CategoryCreatedAt = DateTime.UtcNow,
             };
             categories.Add(newCategory);
-            
+
             // Returning using CreateReadDto
-            var categoryReadDto = new CategoryReadDto {
+            var categoryReadDto = new CategoryReadDto
+            {
                 CategoryID = newCategory.CategoryID,
                 CategoryName = newCategory.CategoryName,
                 CategoryDescription = newCategory.CategoryDescription,
