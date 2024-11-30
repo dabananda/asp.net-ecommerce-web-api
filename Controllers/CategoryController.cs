@@ -32,7 +32,7 @@ namespace ASP.NET_Ecommerce_Web_API.Controllers
                 CategoryCreatedAt = c.CategoryCreatedAt
             }).ToList();
 
-            return Ok(categoryList);
+            return Ok(APIResponse<List<CategoryReadDto>>.SuccessfullResponse(categoryList, 200, "Category returned successfully"));
         }
 
         // POST: /api/categories => Create category
@@ -68,7 +68,7 @@ namespace ASP.NET_Ecommerce_Web_API.Controllers
                 CategoryCreatedAt = newCategory.CategoryCreatedAt
             };
 
-            return Created($"/api/categories/{categoryReadDto.CategoryID}", categoryReadDto);
+            return Created($"/api/categories/{categoryReadDto.CategoryID}", APIResponse<CategoryReadDto>.SuccessfullResponse(categoryReadDto, 201, "Category created successfully"));
         }
 
         // PUT: /api/categories/{categoryId} => Update category
@@ -102,7 +102,7 @@ namespace ASP.NET_Ecommerce_Web_API.Controllers
                 category.CategoryDescription = categoryData.CategoryDescription;
             }
 
-            return NoContent();
+            return Ok(APIResponse<object>.SuccessfullResponse(null, 204, "Category updated successfully"));
         }
 
         // DELETE: /api/categories/{categoryId} => Delet a category
@@ -115,7 +115,7 @@ namespace ASP.NET_Ecommerce_Web_API.Controllers
                 return NotFound("Category not found!");
             }
             categories.Remove(delCategory);
-            return NoContent();
+            return Ok(APIResponse<object>.SuccessfullResponse(null, 204, "Category deleted successfully"));
         }
     }
 }
