@@ -8,10 +8,10 @@ namespace ASP.NET_Ecommerce_Web_API.DTOs
 {
     public class CategoryUpdateDto
     {
-        [StringLength(50, MinimumLength = 2, ErrorMessage = "Category name must be atleast 2 characters long!")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Category name must be between 2 to 50 characters")]
         public string CategoryName { get; set; } = string.Empty;
 
-        [StringLength(150, ErrorMessage = "Category description can not exceed 150 characters!")]
+        [StringLength(200, MinimumLength = 5, ErrorMessage = "Category description must be between 5 to 200 characters")]
         public string CategoryDescription { get; set; } = string.Empty;
     }
 }

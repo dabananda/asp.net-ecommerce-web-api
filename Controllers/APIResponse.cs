@@ -16,20 +16,26 @@ namespace ASP.NET_Ecommerce_Web_API.Controllers
         public DateTime TimeStamp { get; set; }
 
         // Constructor for response
-        public APIResponse(bool success, T data, string message, int statusCode, List<string> errors)
+        public APIResponse(bool success, T? data, string? message, int statusCode, List<string>? errors)
         {
             Success = success;
             Data = data;
             Message = message;
             StatusCode = statusCode;
             TimeStamp = DateTime.UtcNow;
-            Errors = errors;
+            Errors = errors ?? new List<string>();
         }
 
         // Static method for creating a succesful response
-        public static APIResponse<T> SuccessfullResponse(T data, int statusCode, string message = "")
+        public static APIResponse<T> SuccessfullResponse(T? data, int statusCode, string message = "")
         {
             return new APIResponse<T>(true, data, message, statusCode, null);
+        }
+
+        // Static method for creting error response
+        public static APIResponse<T> ErrorResponse(List<string> errors, int statusCode, string message = "")
+        {
+            return new APIResponse<T>(false, default!, message, statusCode, errors);
         }
     }
 }
